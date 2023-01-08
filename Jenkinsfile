@@ -3,19 +3,22 @@ pipeline {
     // This image provides everything needed to run Cypress
     docker {
       image 'cypress/base:latest'
-      args '-u root:root'
+    //   args '-u root:root'
+    reuseNode true
     }
   }
 
   stages {
     stage('build') {
-      //   environment {
-      //     // We will be recording test results and video on Cypress dashboard
-      //     // to record we need to set an environment variable
-      //     // we can load the record key variable from credentials store
-      //     // see https://jenkins.io/doc/book/using/using-credentials/
-      //     CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
-      //   }
+        environment {
+          // We will be recording test results and video on Cypress dashboard
+          // to record we need to set an environment variable
+          // we can load the record key variable from credentials store
+          // see https://jenkins.io/doc/book/using/using-credentials/
+        //   CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
+        NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+        CYPRESS_CACHE_FOLDER = "${WORKSPACE}/.cache/Cypress"
+        }
 
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
