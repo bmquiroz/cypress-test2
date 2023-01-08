@@ -3,7 +3,7 @@ pipeline {
     // This image provides everything needed to run Cypress
     docker {
       image 'cypress/base:latest'
-      args '-u root:root'
+    //   args '-u root:root'
     }
   }
 
